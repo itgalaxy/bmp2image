@@ -1,0 +1,29 @@
+{
+    "name": "itgalaxy/bmp2image",
+    "description": "Creates an image from a Bitmap",
+    "keywords": ["bmp2jpg", "bmp2png", "bmp2gif", "bmp", "jpg", "png", "gif"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Itgalaxy",
+            "email": "info@itgalaxy.company"
+        }
+    ],
+    "require": {
+        "php": "^5.6 || ^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~5.5.0",
+        "phpunit/php-code-coverage": "~4.0.0",
+        "mikey179/vfsStream": "~1.6.0"
+    },
+    "scripts": {
+        "phpunit": "phpunit",
+
+        "test": "@phpunit"
+    },
+    "autoload": {
+        "psr-4": {"Bmp2Image\\": "src/"}
+    }
+}
