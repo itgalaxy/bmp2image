@@ -24,6 +24,6 @@
         "test": "@phpunit"
     },
     "autoload": {
-        "psr-4": {"Bmp2Image\\": "src/"}
+        "psr-4": {"Itgalaxy\\": "src/"}
     }
 }

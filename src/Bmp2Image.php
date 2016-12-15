@@ -1,12 +1,15 @@
 <?php
-namespace Bmp2Image;
+namespace Itgalaxy;
 
 class Bmp2Image
 {
     /**
      * Creates an jpg imageressource from a Bitmap
+     *
      * @param string $filename Path to the Bitmap
+     *
      * @throws \Exception
+     *
      * @return mixed false or a imageressource
      */
     public static function make($filename, $maxWidth = 65535, $maxHeight = 65535)
@@ -29,11 +32,11 @@ class Bmp2Image
             fread($fh, 40)
         );
 
-        if($meta['width'] > $maxWidth) {
+        if ($meta['width'] > $maxWidth) {
             $meta['width'] = 65535;
         }
 
-        if($meta['height'] > $maxHeight) {
+        if ($meta['height'] > $maxHeight) {
             $meta['height'] = 65535;
         }
 
@@ -56,7 +59,7 @@ class Bmp2Image
 
             // in rare cases filesize is equal to offset so we need to read physical size
             if ($meta['imagesize'] < 1) {
-                $meta['imagesize'] = @filesize($filename) - $meta['offset'];
+                $meta['imagesize'] = filesize($filename) - $meta['offset'];
 
                 if ($meta['imagesize'] < 1) {
                     throw new \Exception('Can not obtain filesize of ' . $filename . '!');
@@ -91,6 +94,9 @@ class Bmp2Image
                 // BITMAPV5HEADER
                 case 124:
                     fseek($fh, 0x8a);
+                    break;
+                default:
+                    // No default
                     break;
             }
 
@@ -157,6 +163,7 @@ class Bmp2Image
                         break;
                     case 1:
                         $color = unpack('n', $vide . substr($data, floor($p), 1));
+
                         switch (($p * 8) % 8) {
                             case 0:
                                 $color[1] = $color[1] >> 7;
@@ -182,6 +189,9 @@ class Bmp2Image
                             case 7:
                                 $color[1] = ($color[1] & 0x1);
                                 break;
+                            default:
+                                // No default
+                                break;
                         }
 
                         $color[1] = $palette[$color[1] + 1];
@@ -192,7 +202,7 @@ class Bmp2Image
 
                 imagesetpixel($im, $x, $y, $color[1]);
                 $x++;
-                $p += $meta['bytes'] ;
+                $p += $meta['bytes'];
             }
 
             $y--;
